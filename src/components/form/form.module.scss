@@ -1,0 +1,101 @@
+@import '../../vars.scss';
+
+.form {
+    background-color: $background-color-base;
+    display: inline-block;
+    padding: 48px 32px;
+    border: 1px solid $grey-5;
+    box-shadow: 0px 22px 106px rgba(0, 0, 0, 0.07), 0px 9.19107px 44.2843px rgba(0, 0, 0, 0.0503198), 0px 4.91399px 23.6765px rgba(0, 0, 0, 0.0417275), 0px 2.75474px 13.2728px rgba(0, 0, 0, 0.035), 0px 1.46302px 7.04911px rgba(0, 0, 0, 0.0282725), 0px 0.608796px 2.93329px rgba(0, 0, 0, 0.0196802);
+    border-radius: 6px;
+}
+
+.title {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: $grey-9;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey-9;
+}
+
+.label-checkbox {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: $grey-8;
+    width: 254px;
+}
+
+.input {
+    display: block;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    background: $background-color-base;
+    border: 1px solid $grey-5;
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 320px;
+}
+
+.input-item {
+    margin-bottom: 12px;
+}
+
+.input-item-checkbox {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: start;
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+
+.input-item-checkbox::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: $grey-4;
+    top: -8px;
+}
+
+.input-item:last-of-type {
+    margin-bottom: 21px;
+}
+
+.submit {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    border: none;
+    background: $blue-6;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    color: $background-color-base;
+    padding: 8px 0;
+    width: 100%;
+    cursor: pointer;
+}

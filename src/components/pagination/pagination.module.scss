@@ -1,0 +1,76 @@
+@import '../../vars.scss';
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 22px;
+    align-items: center;
+}
+
+.page {
+    display: block;
+    cursor: pointer;
+}
+
+.current-page {
+    display: block;
+    padding: 3px 8px;
+    background-color: $blue-6;
+    border-radius: 4px;
+    color: $background-color-base;
+}
+
+.prev-page {
+    position: relative;
+    cursor: pointer;
+}
+
+.next-page {
+    position: relative;
+    cursor: pointer;
+}
+
+.prev-page::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.35);
+    transform: rotate(45deg);
+    top: 3px;
+}
+
+.prev-page::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.35);
+    transform: rotate(-45deg);
+    top: -3px;
+}
+
+.next-page::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.35);
+    transform: rotate(135deg);
+    top: 3px;
+}
+
+.next-page::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 10px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, 0.35);
+    transform: rotate(-135deg);
+    top: -3px;
+}

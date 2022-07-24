@@ -1,0 +1,43 @@
+@import '../../vars.scss';
+
+.header {
+    padding: 16px 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $background-color-base;
+}
+
+.title {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+.signin-button {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    border: none;
+    background-color: inherit;
+    color: $heading-color;
+    padding: 8px 18px;
+}
+
+.signup-button {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    border: 1px solid $success-color;
+    border-radius: 5px;
+    color: $success-color;
+    background-color: $background-color-base;
+    padding: 8px 18px;
+}

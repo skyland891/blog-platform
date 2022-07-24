@@ -1,0 +1,92 @@
+@import '../../vars.scss';
+
+.article-wrapper {
+    background-color: $background-color-base;
+    border-radius: 5px;
+    padding: 16px 16px 24px 16px;
+    margin-bottom: 26px;
+}
+
+.avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}
+
+.title {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: $blue-6;
+}
+
+.likes {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.article-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 7px;
+}
+
+.tag {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    padding: 3px 6px;
+    margin-top: 6px;
+}
+
+.description {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.75);
+    width: 75%;
+}
+
+.username {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.date {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.article-header-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 12px;
+}
+
+.post-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
