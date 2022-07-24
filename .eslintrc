@@ -1,0 +1,45 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "airbnb/base",
+        "prettier",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "requireConfigFile": false,
+        "babelOptions": {
+            "presets": [
+                "@babel/preset-react",
+                "@babel/preset-typescript"
+            ]
+        }
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "prettier"
+    ],
+    "rules": {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "no-plusplus": "off",
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "arrow-body-style": "off",
+        "object-shorthand": "off",
+        "no-underscore-dangle": "off",
+        "no-useless-catch": "off",
+        "no-debugger": "off",
+        "class-methods-use-this": "off",
+        "no-error-on-unmatched-pattern": "off",
+        "default-param-last": "off",
+        "import/prefer-default-export": "off",
+        "import/no-extraneous-dependencies": "off"
+    }
+}

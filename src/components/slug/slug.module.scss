@@ -1,0 +1,20 @@
+@import '../../vars.scss';
+
+.slug {
+    background-color: $background-color-base;
+    margin-top: 25px;
+    padding-bottom: 200px;
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15));
+}
+
+.body {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.75);
+    background-color: $background-color-base;
+    padding-left: 16px;
+    padding-right: 40px;
+}
