@@ -41,3 +41,36 @@
     background-color: $background-color-base;
     padding: 8px 18px;
 }
+
+.create-button {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: $success-color;
+    padding: 5px 10px;
+    border: 1px solid $success-color;
+    border-radius: 5px;
+}
+
+.username {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.85);
+    margin-right: 13px;
+}
+
+.logout-button {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    padding: 8px 18px;
+    border: 1px solid rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+}

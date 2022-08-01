@@ -15,6 +15,14 @@ export interface IArticle {
   updatedAt: string;
 }
 
+export interface IUser {
+  username: string;
+  email: string;
+  image: string;
+  bio: string;
+  token: string;
+}
+
 export interface IArticlesResponse {
   articles: IArticle[];
   articlesCount: number;
@@ -22,4 +30,16 @@ export interface IArticlesResponse {
 
 export interface IArticleResponse {
   article: IArticle | null;
+}
+
+export interface IUserResponse {
+  user: IUser | null;
+}
+
+export interface IAuthError {
+  errors: {
+    body: [
+      string
+    ]
+  }
 }

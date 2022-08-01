@@ -39,7 +39,8 @@
     width: 254px;
 }
 
-.input {
+.input,
+.input-error {
     display: block;
     font-family: 'Roboto';
     font-style: normal;
@@ -51,6 +52,11 @@
     border-radius: 4px;
     padding: 8px 12px;
     width: 320px;
+}
+
+.input-error,
+.checkbox-error {
+    border: 1px solid $highlight-color;
 }
 
 .input-item {
@@ -98,4 +104,17 @@
     padding: 8px 0;
     width: 100%;
     cursor: pointer;
+}
+
+.error {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: $highlight-color;
+}
+
+.error-text {
+    margin: 0;
 }
