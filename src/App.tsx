@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -7,56 +7,83 @@ import {
 } from "react-router-dom";
 import Header from "./components/header";
 import pages from "./pages";
-import ArticlePage from "./pages/article-page";
-import SignUp from "./pages/sign-up";
+import Context from "./context";
+import { IUser } from "./types/types";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
-const { SignIn, ArticlesPage } = pages;
+const { Provider } = Context;
+const { SignIn, ArticlesPage, ArticlePage, SignUp, ProfilePage } = pages;
 
 function App() {
-  const [isLogged] = useState(false);
+  const [user, setUser] = useState<IUser | null>(null);
+  const [savedUser, saveUser] = useLocalStorage("user", user);
+
+  useEffect(() => {
+    if (savedUser) {
+      setUser(savedUser);
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(savedUser, saveUser);
+    saveUser(user);
+  }, [user]);
 
   return (
-    <div>
-      <Router>
-        <Header />
-        <Switch>
-          <Route
-            path={"/"}
-            render={() => {
-              return <ArticlesPage />;
-            }}
-            exact
-          />
-          <Route
-            path={"/articles"}
-            render={() => {
-              return <ArticlesPage />;
-            }}
-            exact
-          />
-          <Route
-            path={"/articles/:slug"}
-            render={({ match }) => {
-              const { slug } = match.params;
-              return <ArticlePage slug={slug} />;
-            }}
-          />
-          <Route
-            path={"/login"}
-            render={() => {
-              return <SignIn isLogged={isLogged} />;
-            }}
-          />
-          <Route
-            path={"/sign-up"}
-            render={() => {
-              return <SignUp />;
-            }}
-          />
-          <Redirect to={"/"} />
-        </Switch>
-      </Router>
-    </div>
+    <Provider
+      value={{
+        user: user || savedUser,
+        setUser,
+      }}
+    >
+      <div>
+        <Router>
+          <Header />
+          <Switch>
+            <Route
+              path={"/"}
+              render={() => {
+                return <ArticlesPage />;
+              }}
+              exact
+            />
+            <Route
+              path={"/articles"}
+              render={() => {
+                return <ArticlesPage />;
+              }}
+              exact
+            />
+            <Route
+              path={"/articles/:slug"}
+              render={({ match }) => {
+                const { slug } = match.params;
+                return <ArticlePage slug={slug} />;
+              }}
+            />
+            <Route
+              path={"/login"}
+              render={() => {
+                return <SignIn />;
+              }}
+            />
+            <Route
+              path={"/sign-up"}
+              render={() => {
+                return <SignUp />;
+              }}
+            />
+            <Route
+              path={"/profile"}
+              render={() => {
+                return <ProfilePage />;
+              }}
+            />
+            <Redirect to={"/"} />
+          </Switch>
+        </Router>
+      </div>
+    </Provider>
   );
 }
 
