@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -59,7 +59,11 @@ function SignUp() {
       );
     }
   };
-  const [response, loading, error] = useRequest<IUserResponse, boolean>(
+  const [response, loading, error] = useRequest<
+    IUserResponse,
+    boolean,
+    IAuthError
+  >(
     () => {
       if (isClicked) {
         setIsClicked(false);
@@ -78,10 +82,16 @@ function SignUp() {
     isClicked
   );
   const { user } = response;
+  console.log(error);
 
   useEffect(() => {
     if (error && error.response?.status === 422) {
-      Object.keys(error.response?.data);
+      Object.keys(error.response?.data?.errors).forEach((elem) => {
+        setError(elem, {
+          type: "custom",
+          message: `${elem} ${error.response?.data.errors[elem]}`,
+        });
+      });
     }
   }, [error]);
   const { setUser, user: savedUser } = useContext(Context);
@@ -155,8 +165,8 @@ function SignUp() {
       message: "Поле не должно быть пустым",
     },
     validate: (value: string) => {
-      const { password } = getValues();
-      return password === value || "Пароли должны совпадать";
+      const { passwordValue } = getValues();
+      return passwordValue === value || "Пароли должны совпадать";
     },
   };
 

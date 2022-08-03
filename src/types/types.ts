@@ -38,6 +38,6 @@ export interface IUserResponse {
 
 export interface IAuthError {
   errors: {
-    body: [string];
+    [key: string]: string;
   };
 }

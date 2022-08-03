@@ -1,19 +1,16 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { IAuthError, IUserResponse } from "../types/types";
 
-type Request = () => Promise<AxiosResponse<IUserResponse | IAuthError>> | void;
+type Request = () => Promise<AxiosResponse> | void;
 
-export const useRequest = <T, S>(
+export const useRequest = <T, S, E>(
   request: Request,
   initialValue: T,
   dependencies?: S
-): [T, boolean, AxiosError | undefined] => {
+): [T, boolean, AxiosError<E> | undefined] => {
   const [data, setData] = useState<T>(initialValue);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<AxiosError>(
-    new AxiosError<IUserResponse | IAuthError>()
-  );
+  const [error, setError] = useState<AxiosError<E>>(new AxiosError<E>());
 
   useEffect(() => {
     setLoading(true);
@@ -25,7 +22,7 @@ export const useRequest = <T, S>(
           console.log(response);
           setData(response.data);
         })
-        .catch((err: AxiosError) => {
+        .catch((err: AxiosError<E>) => {
           console.log(err);
           setError(err);
         })

@@ -1,11 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import axios, { AxiosResponse } from "axios";
 import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useInput } from "../hooks/useInput";
 import Form from "../components/form";
 import Context from "../context";
-import axios, { AxiosResponse } from "axios";
-import { IUserResponse } from "../types/types";
+import { IAuthError, IUserResponse } from "../types/types";
 import { useRequest } from "../hooks/useRequest";
 
 function ProfilePage() {
@@ -21,7 +21,6 @@ function ProfilePage() {
     handleSubmit,
     setError,
     formState: { errors },
-    getValues,
   } = useForm({
     mode: "onBlur",
   });
@@ -34,7 +33,7 @@ function ProfilePage() {
     usernameValue: string,
     emailValue: string,
     passwordValue: string,
-    avatar: string
+    avatarValue: string
   ): Promise<AxiosResponse<IUserResponse, any>> | undefined => {
     if (usernameValue !== "" && emailValue !== "") {
       const requestBody = {
@@ -42,7 +41,7 @@ function ProfilePage() {
           username: usernameValue,
           email: emailValue,
           password: passwordValue,
-          image: avatar,
+          image: avatarValue,
         },
       };
       return axios.put<IUserResponse>(
@@ -57,7 +56,11 @@ function ProfilePage() {
     }
   };
 
-  const [response, loading, error] = useRequest<IUserResponse, boolean>(
+  const [response, loading, error] = useRequest<
+    IUserResponse,
+    boolean,
+    IAuthError
+  >(
     () => {
       if (isClicked) {
         setIsClicked(false);
@@ -80,6 +83,17 @@ function ProfilePage() {
   if (user !== null && savedUser?.token !== user?.token) {
     setUser(user);
   }
+
+  useEffect(() => {
+    if (error && error.response?.status === 422) {
+      Object.keys(error.response?.data?.errors).forEach((elem) => {
+        setError(elem, {
+          type: "custom",
+          message: `${elem} ${error.response?.data.errors[elem]}`,
+        });
+      });
+    }
+  }, [error]);
 
   const usernameInput = {
     label: "Username",
@@ -121,13 +135,11 @@ function ProfilePage() {
       console.log(value);
       if (value === "") {
         return true;
-      } else {
-        if (value.length < 6 || value.length > 40) {
-          return "new password должен быть от 6 до 40 символом";
-        } else {
-          return true;
-        }
       }
+      if (value.length < 6 || value.length > 40) {
+        return "new password должен быть от 6 до 40 символом";
+      }
+      return true;
     },
   };
 
@@ -141,15 +153,11 @@ function ProfilePage() {
     validate: (value: string) => {
       if (value === "") {
         return true;
-      } else {
-        if (
-          value.match(/([a-zA-Z0-9\-]{1,63}\.)*[a-zA-Z0-9\-]{1,63}/) === null
-        ) {
-          return "new password должен быть от 6 до 40 символом";
-        } else {
-          return true;
-        }
       }
+      if (value.match(/([a-zA-Z0-9\-]{1,63}\.)*[a-zA-Z0-9\-]{1,63}/) === null) {
+        return "new password должен быть от 6 до 40 символом";
+      }
+      return true;
     },
   };
 
