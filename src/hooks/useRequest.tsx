@@ -11,7 +11,9 @@ export const useRequest = <T, S>(
 ): [T, boolean, AxiosError | undefined] => {
   const [data, setData] = useState<T>(initialValue);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<AxiosError>(new AxiosError<IUserResponse | IAuthError>());
+  const [error, setError] = useState<AxiosError>(
+    new AxiosError<IUserResponse | IAuthError>()
+  );
 
   useEffect(() => {
     setLoading(true);

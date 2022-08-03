@@ -12,7 +12,7 @@ import { IUser } from "./types/types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 const { Provider } = Context;
-const { SignIn, ArticlesPage, ArticlePage, SignUp } = pages;
+const { SignIn, ArticlesPage, ArticlePage, SignUp, ProfilePage } = pages;
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -71,6 +71,12 @@ function App() {
               path={"/sign-up"}
               render={() => {
                 return <SignUp />;
+              }}
+            />
+            <Route
+              path={"/profile"}
+              render={() => {
+                return <ProfilePage />;
               }}
             />
             <Redirect to={"/"} />

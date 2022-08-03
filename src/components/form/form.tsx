@@ -21,6 +21,7 @@ export interface Input {
   maxLength?: ValidationRule<number>;
   pattern?: ValidationRule<RegExp>;
   validate?: (value: string) => boolean | string;
+  required?: ValidationRule<boolean>;
 }
 
 interface FormProps {
@@ -42,25 +43,21 @@ function Form({
   submitButtonLabel,
   errors,
 }: FormProps) {
-
   const inputClassName = (input: Input) => {
     if (errors[`${input.id}`]) {
-      if (input.type === 'checkbox') {
+      if (input.type === "checkbox") {
         return style["checkbox-error"];
-      }
-      else {
+      } else {
         return style["input-error"];
       }
-    }
-    else {
-      if (input.type === 'checkbox') {
+    } else {
+      if (input.type === "checkbox") {
         return style.checkbox;
-      }
-      else {
+      } else {
         return style.input;
       }
     }
-  }
+  };
 
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
@@ -86,18 +83,16 @@ function Form({
               {input.label}
             </label>
             <input
-              className={
-                inputClassName(input)
-              }
+              className={inputClassName(input)}
               type={input.type}
               id={input.id}
               placeholder={input.placeholder}
               {...register(input.id, {
-                required: "Поле должно быть заполнено",
+                required: input.required,
                 minLength: input.minLength,
                 maxLength: input.maxLength,
                 pattern: input.pattern,
-                validate: input.validate
+                validate: input.validate,
               })}
               {...input.element}
             />

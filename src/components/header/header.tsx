@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Context from "../../context";
 import { IUser } from "../../types/types";
 import style from "./header.module.scss";
+import avatarPlaceholder from "../../assets/img/avatar_placeholder.svg";
 
 const unlogged = () => {
   return (
@@ -31,7 +32,7 @@ const logged = (loggedUser: IUser, setUser: (user: IUser | null) => void) => {
       <Link className={style["create-button"]} to={"/articles"}>
         Create article
       </Link>
-      <Link to={"/articles"}>
+      <Link to={"/profile"}>
         <div style={{ display: "flex", alignItems: "center" }}>
           <span className={style.username}>
             {loggedUser && loggedUser.username}
@@ -39,7 +40,11 @@ const logged = (loggedUser: IUser, setUser: (user: IUser | null) => void) => {
           <img
             width={46}
             height={46}
-            src={loggedUser !== null ? loggedUser.image : undefined}
+            src={
+              loggedUser !== null && loggedUser.image
+                ? loggedUser.image
+                : avatarPlaceholder
+            }
           ></img>
         </div>
       </Link>

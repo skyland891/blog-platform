@@ -57,14 +57,15 @@ function SignIn() {
 
   useEffect(() => {
     if (error && error.response?.status === 422) {
-      setError('email', {
-        type: 'server',
-        message: 'Неправильный логин или пароль'
-      })
+      setError("email", {
+        type: "server",
+        message: "Неправильный логин или пароль",
+      });
     }
   }, [error]);
 
-  const { setUser } = useContext(Context);
+  const { setUser, user: savedUser } = useContext(Context);
+  console.log(user);
   setUser(user);
 
   const emailInput = {
@@ -73,10 +74,15 @@ function SignIn() {
     type: "email",
     id: "email",
     element: email,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
     pattern: {
-      value: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      message: 'email должен быть корректным почтовым адресом'
-    }
+      value:
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      message: "email должен быть корректным почтовым адресом",
+    },
   };
 
   const passwordInput = {
@@ -85,11 +91,15 @@ function SignIn() {
     type: "password",
     id: "password",
     element: password,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
   };
 
   const loginInputs = [emailInput, passwordInput];
 
-  if (user) {
+  if (user || savedUser) {
     return <Redirect to={"/articles"} />;
   }
 

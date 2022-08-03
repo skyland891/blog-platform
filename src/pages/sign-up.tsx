@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import Context from "../context";
 import { useCheckbox } from "../hooks/useCheckbox";
 import { useInput } from "../hooks/useInput";
 import { useRequest } from "../hooks/useRequest";
-import { IUserResponse } from "../types/types";
+import { IAuthError, IUserResponse } from "../types/types";
 
 function SignUp() {
   const username = useInput("");
@@ -23,7 +23,7 @@ function SignUp() {
     handleSubmit,
     formState: { errors },
     getValues,
-    setError
+    setError,
   } = useForm({
     mode: "onBlur",
   });
@@ -59,8 +59,7 @@ function SignUp() {
       );
     }
   };
-
-  const [response, loading, error] = useRequest(
+  const [response, loading, error] = useRequest<IUserResponse, boolean>(
     () => {
       if (isClicked) {
         setIsClicked(false);
@@ -82,11 +81,10 @@ function SignUp() {
 
   useEffect(() => {
     if (error && error.response?.status === 422) {
-      Object.keys(error.response?.data.errors)
+      Object.keys(error.response?.data);
     }
   }, [error]);
-
-  const { setUser } = useContext(Context);
+  const { setUser, user: savedUser } = useContext(Context);
   setUser(user);
 
   const usernameInput = {
@@ -95,6 +93,10 @@ function SignUp() {
     label: "Username",
     type: "text",
     element: username,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
     minLength: {
       value: 3,
       message: "username должен быть от 3 до 20 символов",
@@ -111,6 +113,10 @@ function SignUp() {
     label: "Email address",
     type: "email",
     element: email,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
     pattern: {
       value:
         /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -124,6 +130,10 @@ function SignUp() {
     placeholder: "Password",
     type: "password",
     element: password,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
     minLength: {
       value: 6,
       message: "password должен быть от 6 до 40 символов",
@@ -140,10 +150,14 @@ function SignUp() {
     placeholder: "Repeat password",
     label: "Repeat password",
     element: repeatPassword,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
     validate: (value: string) => {
       const { password } = getValues();
       return password === value || "Пароли должны совпадать";
-    }
+    },
   };
 
   const personalInformationCheckbox = {
@@ -151,6 +165,10 @@ function SignUp() {
     type: "checkbox",
     label: "I agree to the processing of my personal information",
     element: personalInformation,
+    required: {
+      value: true,
+      message: "Поле не должно быть пустым",
+    },
   };
 
   const signUpInputs: Input[] = [
@@ -161,7 +179,7 @@ function SignUp() {
     personalInformationCheckbox,
   ];
 
-  if (user) {
+  if (user || savedUser) {
     return <Redirect to={"/articles"} />;
   }
 

@@ -18,8 +18,8 @@ export interface IArticle {
 export interface IUser {
   username: string;
   email: string;
-  image: string;
-  bio: string;
+  image?: string;
+  bio?: string;
   token: string;
 }
 
@@ -38,8 +38,6 @@ export interface IUserResponse {
 
 export interface IAuthError {
   errors: {
-    body: [
-      string
-    ]
-  }
+    body: [string];
+  };
 }
