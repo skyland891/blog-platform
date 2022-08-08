@@ -9,7 +9,7 @@ function Article({
   description,
   author,
   createdAt,
-  favoritesCount,
+  favouritesCount,
   tagList,
   slug,
 }: IArticle) {
@@ -22,13 +22,13 @@ function Article({
           <Link to={`/articles/${slug}`} className={style.title}>
             {title}
           </Link>
-          <span className={style.likes}>{favoritesCount}</span>
+          <span className={style.likes}>{favouritesCount}</span>
           <div
             style={{ display: "flex", justifyContent: "flex-start", gap: 8 }}
           >
             {tagList.map((tag) => {
               maxId += 1;
-              if (tag === "") {
+              if (tag && tag.trim() === "") {
                 return null;
               }
               return (

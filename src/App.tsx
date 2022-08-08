@@ -12,7 +12,15 @@ import { IUser } from "./types/types";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 
 const { Provider } = Context;
-const { SignIn, ArticlesPage, ArticlePage, SignUp, ProfilePage } = pages;
+const {
+  SignIn,
+  ArticlesPage,
+  ArticlePage,
+  SignUp,
+  ProfilePage,
+  CreateArticle,
+  EditSlug,
+} = pages;
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -60,6 +68,14 @@ function App() {
                 const { slug } = match.params;
                 return <ArticlePage slug={slug} />;
               }}
+              exact
+            />
+            <Route
+              path={"/articles/:slug/edit"}
+              render={({ match }) => {
+                const { slug } = match.params;
+                return <EditSlug slug={slug} />;
+              }}
             />
             <Route
               path={"/login"}
@@ -77,6 +93,12 @@ function App() {
               path={"/profile"}
               render={() => {
                 return <ProfilePage />;
+              }}
+            />
+            <Route
+              path={"/new-article"}
+              render={() => {
+                return <CreateArticle />;
               }}
             />
             <Redirect to={"/"} />
