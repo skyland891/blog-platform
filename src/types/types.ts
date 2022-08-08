@@ -7,8 +7,8 @@ export interface IArticle {
   body: string;
   createdAt: string;
   description: string;
-  favorited: boolean;
-  favoritesCount: number;
+  favourited: boolean;
+  favouritesCount: number;
   slug: string;
   tagList: string[];
   title: string;

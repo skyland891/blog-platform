@@ -29,7 +29,7 @@ const logged = (loggedUser: IUser, setUser: (user: IUser | null) => void) => {
         gap: 25,
       }}
     >
-      <Link className={style["create-button"]} to={"/articles"}>
+      <Link className={style["create-button"]} to={"/new-article"}>
         Create article
       </Link>
       <Link to={"/profile"}>

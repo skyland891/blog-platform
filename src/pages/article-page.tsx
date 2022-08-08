@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Slug from "../components/slug";
 import { useRequest } from "../hooks/useRequest";
 import { IArticleResponse } from "../types/types";
@@ -15,10 +16,13 @@ const fetchArticle = (slug: string) => {
 };
 
 function ArticlePage({ slug }: ArticlePageProps) {
-  const [response] = useRequest(() => fetchArticle(slug), {
+  const [response, loading, error] = useRequest(() => fetchArticle(slug), {
     article: null,
   });
   const { article } = response;
+  if (error && error.response?.status === 404) {
+    return <Redirect to={'/'} />
+  }
   return (
     <div style={{ padding: "0 250px" }}>
       <Slug article={article} />
