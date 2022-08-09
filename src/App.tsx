@@ -33,7 +33,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(savedUser, saveUser);
     saveUser(user);
   }, [user]);
 
