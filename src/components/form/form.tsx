@@ -47,16 +47,13 @@ function Form({
     if (errors[`${input.id}`]) {
       if (input.type === "checkbox") {
         return style["checkbox-error"];
-      } else {
-        return style["input-error"];
       }
-    } else {
-      if (input.type === "checkbox") {
-        return style.checkbox;
-      } else {
-        return style.input;
-      }
+      return style["input-error"];
     }
+    if (input.type === "checkbox") {
+      return style.checkbox;
+    }
+    return style.input;
   };
 
   return (
