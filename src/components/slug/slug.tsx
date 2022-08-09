@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
 import MarkDown from "markdown-to-jsx";
 import { Link, Redirect } from "react-router-dom";
+import axios from "axios";
 import { IArticle, IAuthError } from "../../types/types";
 import Article from "../article";
 import style from "./slug.module.scss";
 import Context from "../../context";
-import axios, { Axios, AxiosResponse } from "axios";
 import { useRequest } from "../../hooks/useRequest";
 
 interface SlugProps {
@@ -15,28 +15,30 @@ interface SlugProps {
 function Slug({ article }: SlugProps) {
   const { user } = useContext(Context);
   const [isWarning, setIsWarning] = useState<boolean>(false);
-  const [isClicked, setIsClicked] = useState(false)
+  const [isClicked, setIsClicked] = useState(false);
   const deleteArticle = (slug: string | undefined) => {
-    return axios.delete(
-      `https://blog.kata.academy/api/articles/${slug}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      }
-    );
+    return axios.delete(`https://blog.kata.academy/api/articles/${slug}`, {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
   };
-  const [response, loading, error] = useRequest<string | null, boolean, IAuthError>(() => {
-    if (isClicked) {
-      setIsClicked(false);
-      return deleteArticle(article?.slug);
-    }
-  },
-    null
-    ,
-    isClicked);
+  const [response, loading, error] = useRequest<
+    string | null,
+    boolean,
+    IAuthError
+  >(
+    () => {
+      if (isClicked) {
+        setIsClicked(false);
+        return deleteArticle(article?.slug);
+      }
+    },
+    null,
+    isClicked
+  );
   if (response === "") {
-    return <Redirect to={'/'} />
+    return <Redirect to={"/"} />;
   }
   if (article) {
     return (
@@ -69,9 +71,14 @@ function Slug({ article }: SlugProps) {
                   >
                     No
                   </button>
-                  <button className={style.yes} onClick={() => {
-                    setIsClicked(true);
-                  }}>Yes</button>
+                  <button
+                    className={style.yes}
+                    onClick={() => {
+                      setIsClicked(true);
+                    }}
+                  >
+                    Yes
+                  </button>
                 </div>
               </div>
             )}

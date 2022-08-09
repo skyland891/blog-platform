@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import like from "../../assets/img/like.svg";
+import unlike from "../../assets/img/unlike.svg";
 import style from "./article.module.scss";
 import { IArticle } from "../../types/types";
 import { dateFormat } from "../../utils/timeFormat";
@@ -9,9 +11,12 @@ function Article({
   description,
   author,
   createdAt,
-  favouritesCount,
+  favoritesCount,
+  favorited,
   tagList,
   slug,
+  setLike,
+  setUnlike,
 }: IArticle) {
   let maxId = 100;
   const { username, image } = author;
@@ -22,13 +27,25 @@ function Article({
           <Link to={`/articles/${slug}`} className={style.title}>
             {title}
           </Link>
-          <span className={style.likes}>{favouritesCount}</span>
+          <div className={style["like-wrapper"]}>
+            <img
+              src={favorited ? like : unlike}
+              onClick={() => {
+                if (!favorited) {
+                  setLike && setLike(slug);
+                } else {
+                  setUnlike && setUnlike(slug);
+                }
+              }}
+            />
+            <span className={style.likes}>{favoritesCount}</span>
+          </div>
           <div
             style={{ display: "flex", justifyContent: "flex-start", gap: 8 }}
           >
             {tagList.map((tag) => {
               maxId += 1;
-              if (tag && tag.trim() === "") {
+              if (tag.trim() === "") {
                 return null;
               }
               return (

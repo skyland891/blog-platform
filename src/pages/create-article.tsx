@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 import ArticleForm from "../components/article-form";
+import Loader from "../components/loader";
 import Context from "../context";
 import { useInput } from "../hooks/useInput";
 import { useRequest } from "../hooks/useRequest";
@@ -96,7 +97,9 @@ function CreateArticle() {
   if (!user) {
     return <Redirect to={"/login"} />;
   }
-  console.log(tagList);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div
       style={{

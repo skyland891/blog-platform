@@ -9,6 +9,7 @@ import { useCheckbox } from "../hooks/useCheckbox";
 import { useInput } from "../hooks/useInput";
 import { useRequest } from "../hooks/useRequest";
 import { IAuthError, IUserResponse } from "../types/types";
+import Loader from "../components/loader";
 
 function SignUp() {
   const username = useInput("");
@@ -82,7 +83,6 @@ function SignUp() {
     isClicked
   );
   const { user } = response;
-  console.log(error);
 
   useEffect(() => {
     if (error && error.response?.status === 422) {
@@ -164,9 +164,10 @@ function SignUp() {
       value: true,
       message: "Поле не должно быть пустым",
     },
-    validate: (value: string) => {
-      const { passwordValue } = getValues();
-      return passwordValue === value || "Пароли должны совпадать";
+    validate: () => {
+      return password.value === repeatPassword.value
+        ? true
+        : "Пароли должны совпадать";
     },
   };
 
@@ -192,7 +193,9 @@ function SignUp() {
   if (user || savedUser) {
     return <Redirect to={"/articles"} />;
   }
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div
       style={{

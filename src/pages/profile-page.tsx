@@ -7,6 +7,7 @@ import Form from "../components/form";
 import Context from "../context";
 import { IAuthError, IUserResponse } from "../types/types";
 import { useRequest } from "../hooks/useRequest";
+import Loader from "../components/loader";
 
 function ProfilePage() {
   const { user: savedUser, setUser } = useContext(Context);
@@ -78,7 +79,6 @@ function ProfilePage() {
     isClicked
   );
   const { user } = response;
-  console.log(response);
 
   if (user !== null && savedUser?.token !== user?.token) {
     setUser(user);
@@ -132,7 +132,6 @@ function ProfilePage() {
     element: newPassword,
     required: false,
     validate: (value: string) => {
-      console.log(value);
       if (value === "") {
         return true;
       }
@@ -171,7 +170,9 @@ function ProfilePage() {
   if (!(user || savedUser)) {
     return <Redirect to={"/articles"} />;
   }
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div
       style={{
