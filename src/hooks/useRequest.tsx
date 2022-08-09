@@ -12,25 +12,27 @@ export const useRequest = <T, S, E>(
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<AxiosError<E>>(new AxiosError<E>());
 
-  useEffect(() => {
-    setLoading(true);
-    const result = request();
-    console.log(result);
-    if (result) {
-      result
-        .then((response: AxiosResponse) => {
-          console.log(response);
-          setData(response.data);
-        })
-        .catch((err: AxiosError<E>) => {
-          console.log(err);
-          setError(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [dependencies]);
+  useEffect(
+    () => {
+      setLoading(true);
+      const result = request();
+      if (result) {
+        result
+          .then((response: AxiosResponse) => {
+            setData(response.data);
+          })
+          .catch((err: AxiosError<E>) => {
+            setError(err);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      } else {
+        setLoading(false);
+      }
+    },
+    Array.isArray(dependencies) ? dependencies : [dependencies]
+  );
 
   return [data, loading, error];
 };

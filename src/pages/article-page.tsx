@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Redirect } from "react-router-dom";
+import Loader from "../components/loader";
 import Slug from "../components/slug";
 import { useRequest } from "../hooks/useRequest";
 import { IArticleResponse } from "../types/types";
@@ -21,7 +22,10 @@ function ArticlePage({ slug }: ArticlePageProps) {
   });
   const { article } = response;
   if (error && error.response?.status === 404) {
-    return <Redirect to={'/'} />
+    return <Redirect to={"/"} />;
+  }
+  if (loading) {
+    return <Loader />;
   }
   return (
     <div style={{ padding: "0 250px" }}>

@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface IArticle {
   author: {
     username: string;
@@ -7,12 +9,14 @@ export interface IArticle {
   body: string;
   createdAt: string;
   description: string;
-  favourited: boolean;
-  favouritesCount: number;
+  favorited: boolean;
+  favoritesCount: number;
   slug: string;
   tagList: string[];
   title: string;
   updatedAt: string;
+  setLike?: Dispatch<SetStateAction<string | false>>;
+  setUnlike?: Dispatch<SetStateAction<string | false>>;
 }
 
 export interface IUser {

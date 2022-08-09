@@ -23,12 +23,23 @@
 }
 
 .likes {
+    position: relative;
+    top: 3px;
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 22px;
     color: rgba(0, 0, 0, 0.75);
+}
+
+.like-wrapper {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: flex-end;
+    gap: 6px;
+    margin-left: 14px;
 }
 
 .article-header {

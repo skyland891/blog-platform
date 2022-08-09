@@ -7,6 +7,7 @@ import { useInput } from "../hooks/useInput";
 import { IUserResponse } from "../types/types";
 import { useRequest } from "../hooks/useRequest";
 import Context from "../context";
+import Loader from "../components/loader";
 
 function SignIn() {
   const email = useInput("");
@@ -65,7 +66,6 @@ function SignIn() {
   }, [error]);
 
   const { setUser, user: savedUser } = useContext(Context);
-  console.log(user);
   setUser(user);
 
   const emailInput = {
@@ -102,7 +102,9 @@ function SignIn() {
   if (user || savedUser) {
     return <Redirect to={"/articles"} />;
   }
-
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <div
       style={{
